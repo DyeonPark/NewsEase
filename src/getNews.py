@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from newsapi import NewsApiClient
+import openai
 
 load_dotenv(verbose=True)
 
@@ -39,6 +40,11 @@ def get_article_txt_from_url(url):
     article_text = '\n'.join([para.get_text() for para in paragraphs])
     
     return article_text
+
+
+def convert_txt_to_steps(context: str, level: str):
+    
+    openai.api_key = os.getenv("openaiAPI")
     
     
 if __name__ == "__main__":
@@ -47,5 +53,12 @@ if __name__ == "__main__":
     for idx, url in enumerate(article_urls, start=1):
         print(f"Fetching article {idx} from {url}")
         article_txt = get_article_txt_from_url(url)
-        print(f"Article {idx} text: \n{article_txt[:500]}...")  # 500자까지만 미리보기로 출력
+        print(f"Article {idx} text: \n{article_txt[:500]}...")
         print("-" * 80)
+        
+        proficiency_level = ["elementary school", "middle/high school", "university"]
+        for level in proficiency_level:
+            converted_txt = convert_txt_to_steps(context=article_txt, level=level)
+            print(f"Article {idx} text: \n{converted_txt[:500]}...")  
+            print("o" * 20)
+        
