@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기사 목록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .article-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .article-list li {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .article-content {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>기사 목록</h1>
+    <ul class="article-list">
+        <li onclick="showArticle('article1')">기사 제목 1</li>
+        <li onclick="showArticle('article2')">기사 제목 2</li>
+        <li onclick="showArticle('article3')">기사 제목 3</li>
+    </ul>
+
+    <div id="article1" class="article-content">
+        <h2>기사 제목 1</h2>
+        <p>이곳에 기사 1의 내용이 표시됩니다.</p>
+    </div>
+    <div id="article2" class="article-content">
+        <h2>기사 제목 2</h2>
+        <p>이곳에 기사 2의 내용이 표시됩니다.</p>
+    </div>
+    <div id="article3" class="article-content">
+        <h2>기사 제목 3</h2>
+        <p>이곳에 기사 3의 내용이 표시됩니다.</p>
+    </div>
+
+    <script>
+        function showArticle(articleId) {
+            var articles = document.getElementsByClassName('article-content');
+            for (var i = 0; i < articles.length; i++) {
+                articles[i].style.display = 'none';
+            }
+            document.getElementById(articleId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
