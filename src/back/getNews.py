@@ -1,5 +1,6 @@
 import os
 import requests
+from typing import List
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from newsapi import NewsApiClient
@@ -8,27 +9,21 @@ from openai import OpenAI
 load_dotenv(verbose=True)
 client = OpenAI(api_key=os.getenv("openaiAPI"))
 
-def get_news_urls(n: int=30):
+
+def get_news_urls_from_bbc(n: int = 10) -> List[str]:
+    # set tokens for NewsAPI
     NEWS_TOKEN = os.getenv("NewsAPI")
     newsapi = NewsApiClient(api_key=NEWS_TOKEN)
-
+    
     # get top headlines of bbc-news
     top_headlines = newsapi.get_top_headlines(sources='bbc-news', page_size=5)
-
-    # get title, description, url of articles
-    for idx, article in enumerate(top_headlines['articles'], start=1):
-        print(f"Article {idx}:")
-        print(f"Title: {article['title']}")
-        print(f"Description: {article['description']}")
-        print(f"URL: {article['url']}")
-        print("-" * 80)
         
     # extract url from article lists
     article_urls = [article['url'] for article in top_headlines['articles']]  
     return article_urls
     
     
-def get_article_txt_from_url(url):
+def get_article_txt_from_url(url: str) -> str:
     # get HTML content of url
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -68,17 +63,25 @@ if __name__ == "__main__":
     
     for idx, url in enumerate(article_urls, start=1):
         print(f"Fetching article {idx} from {url}")
-        article_txt = get_article_txt_from_url(url)
+        article_txt, largets_img_url = get_article_txt_from_url(url)
         print(f"Article {idx} text: \n{article_txt[:500]}...")
         print("-" * 80)
         
-        proficiency_level = ["elementary school", "middle-high school", "university"]
-        for level in proficiency_level:
-            converted_txt = convert_txt_to_steps(context=article_txt, level=level)
-            print(f"Article {idx} text: \n{converted_txt[:500]}...")  
-            with open(f"{level}.txt", "w", encoding="utf-8") as file:
-                file.write(converted_txt)
-                print("File is successfully saved ... !")
-            print("o" * 20)
+        with open(f"test-txt-{idx}.txt", "w", encoding="utf-8") as file:
+                file.write(article_txt)
+                print("File is article_txt saved ... !")
+        
+        # 바이너리 형식으로 파일 저장
+        with open(f"test-img-{idx}.jpg", 'wb') as file:
+            file.write(largets_img_url)
+        
+        # proficiency_level = ["elementary school", "middle-high school", "university"]
+        # for level in proficiency_level:
+        #     converted_txt = convert_txt_to_steps(context=article_txt, level=level)
+        #     print(f"Article {idx} text: \n{converted_txt[:500]}...")  
+        #     with open(f"{level}.txt", "w", encoding="utf-8") as file:
+        #         file.write(converted_txt)
+        #         print("File is successfully saved ... !")
+        #     print("o" * 20)
             
             
