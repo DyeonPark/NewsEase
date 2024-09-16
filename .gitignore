@@ -28,3 +28,7 @@ venv.bak/
 
 # VScode
 .vscode
+
+# Temp data
+tmp-data
+tmp-data/
