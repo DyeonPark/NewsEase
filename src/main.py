@@ -37,6 +37,9 @@ if __name__ == "__main__":
         save_dir = os.path.join(data_path, now_date_n_num)
         check_n_crate_folder(os.path.join(save_dir))
         
+        with open(os.path.join(save_dir, "url.txt"), "w", encoding="utf-8") as file:
+            file.write(url)
+        
         # get article and image url
         article, img_url = get_article_n_img_from_url(url)
         
