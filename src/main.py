@@ -56,32 +56,32 @@ if __name__ == "__main__":
             with open(os.path.join(save_dir, "article.txt"), "w", encoding="utf-8") as file:
                 file.write(article)
         
-    # # base variable for checking today directory
-    # now_date = str(datetime.now().strftime("%Y-%m-%d"))
-    # dir_list = os.listdir(data_path)
-    # news_level = {
-    #     1: "elementary school",
-    #     2: "middle and high school",
-    #     3: "university"
-    # }
+    # base variable for checking today directory
+    now_date = str(datetime.now().strftime("%Y-%m-%d"))
+    dir_list = os.listdir(data_path)
+    news_level = {
+        1: "elementary school",
+        2: "middle and high school",
+        3: "university"
+    }
     
-    # # create article with levels in tmp-data folder
-    # for dir in dir_list:
-    #     if now_date in dir:
-    #         origin_path = os.path.join(data_path, dir)
-    #         print(f">>> 기사 생성 작업 디렉토리 : {origin_path}")
+    # create article with levels in tmp-data folder
+    for dir in dir_list:
+        if now_date in dir:
+            origin_path = os.path.join(data_path, dir)
+            print(f">>> 기사 생성 작업 디렉토리 : {origin_path}")
             
-    #         with open(os.path.join(origin_path, 'article.txt'), 'r', encoding='utf-8') as file:
-    #             file_content = file.read()
+            with open(os.path.join(origin_path, 'article.txt'), 'r', encoding='utf-8') as file:
+                file_content = file.read()
                 
-    #             for level in [1, 2, 3]:
-    #                 leveled_text = convert_txt_to_steps(context=file_content, level=news_level[level])
-    #                 print(f">>> >>> 재생성 진행중인 기사 파일: {os.path.join(origin_path, f"article-{level}.txt")}")
+                for level in [1, 2, 3]:
+                    leveled_text = convert_txt_to_steps(context=file_content, level=news_level[level])
+                    print(f">>> >>> 재생성 진행중인 기사 파일: {os.path.join(origin_path, f"article-{level}.txt")}")
                     
-    #                 with open(os.path.join(origin_path, f"article-{level}.txt"), "w", encoding="utf-8") as file:
-    #                     file.write(leveled_text)
-                    
-            
+                    with open(os.path.join(origin_path, f"article-{level}.txt"), "w", encoding="utf-8") as file:
+                        file.write(leveled_text)
+    
+    
     # # create tts file of today
     # for dir in dir_list:
     #     if now_date in dir:
