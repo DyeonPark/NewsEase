@@ -6,7 +6,7 @@ from datetime import datetime
 
 # Anvil API 엔드포인트 URL
 api_base = "https://news-ease.com/_/api/"
-add_article_api_ = api_base + "add_article"
+add_article_api = api_base + "add_article"
 get_max_id_api = api_base + "max_id"
 
 # 오늘 날짜의 폴더 찾기
@@ -30,6 +30,8 @@ for dir in dir_list:
         print(f">> API 작업 디렉토리 : {origin_path}")
         
         post_data = dict()
+        
+        # 공통 데이터를 딕셔너리에 저장
         with open(os.path.join(origin_path, "title.txt"), 'r', encoding='utf-8') as file:
             post_data["title"] = file.read()
             
@@ -57,30 +59,33 @@ for dir in dir_list:
         files = os.listdir(origin_path)
         leveled_article_txt = [file for file in files if 'article-' in file and file.endswith('.txt')]
         
-        # 전송할 데이터
+        # for문을 돌며 레벨별 데이터를 딕셔너리에 저장 및 전송
         for level_txt in leveled_article_txt:
             post_data["level"] = int(level_txt[0][-5])
             
             with open(os.path.join(origin_path, level_txt), 'r', encoding='utf-8') as file:
                 post_data["leveld_article"] = file.read()
+                
+            with open(os.path.join(origin_path,level_txt[:-3] + "mp3"), 'rb') as file:
+                post_data["tts_audio"] = file
         
-            data = {
-                "title_id": 1,
-                # "date": ,  # 테스트 필요
-                "title": post_data["title"],
-                "level": post_data["level"],
-                "article": post_data["leveld_article"],
-                # "tts_audio": ,  # 테스트 필요
-                "img_url": post_data["img-url"],
-                "origin_url": post_data["url"],
-                "abstract": post_data["abstract"],
-            }
+                data = {
+                    "title_id": post_data["id"],
+                    "date": datetime.now().date(),
+                    "title": post_data["title"],
+                    "level": post_data["level"],
+                    "article": post_data["leveld_article"],
+                    "tts_audio": post_data["tts_audio"],
+                    "img_url": post_data["img-url"],
+                    "origin_url": post_data["url"],
+                    "abstract": post_data["abstract"],
+                }
 
-        # # HTTP POST 요청 보내기
-        # response = requests.post(api_url, json=data)
+            # HTTP POST 요청 보내기
+            response = requests.post(add_article_api, json=data)
 
-        # # 응답 확인
-        # if response.status_code == 200:
-        #     print("Success:", response.json())
-        # else:
-        #     print("Error:", response.status_code, response.text)
+            # 응답 확인
+            if response.status_code == 200:
+                print("Success:", response.json())
+            else:
+                print("Error:", response.status_code, response.text)
