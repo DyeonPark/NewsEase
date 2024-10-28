@@ -61,7 +61,7 @@ for dir in dir_list:
         
         # for문을 돌며 레벨별 데이터를 딕셔너리에 저장 및 전송
         for level_txt in leveled_article_txt:
-            post_data["level"] = int(level_txt[0][-5])
+            post_data["level"] = int(level_txt[-5])
             
             with open(os.path.join(origin_path, level_txt), 'r', encoding='utf-8') as file:
                 post_data["leveld_article"] = file.read()
