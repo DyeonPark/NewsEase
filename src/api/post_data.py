@@ -71,7 +71,7 @@ for dir in dir_list:
         
                 json_data = {
                     "title_id": post_data["id"],
-                    "date": datetime.now().date(),
+                    "date": datetime.now().date().isoformat(),
                     "title": post_data["title"],
                     "level": post_data["level"],
                     "article": post_data["leveld_article"],
@@ -85,7 +85,7 @@ for dir in dir_list:
                 }
 
                 # HTTP POST 요청 보내기
-                response = requests.post(add_article_api, data={"metadata": json_data}, files=audio_file)
+                response = requests.post(add_article_api, json=json_data, files=audio_file)
 
                 # 응답 확인
                 if response.status_code == 200:
