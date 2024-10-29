@@ -85,7 +85,7 @@ for dir in dir_list:
                 }
 
                 # HTTP POST 요청 보내기
-                response = requests.post(add_article_api, data=json_data, files=audio_file)
+                response = requests.post(add_article_api, data={"metadata": json_data}, files=audio_file)
 
                 # 응답 확인
                 if response.status_code == 200:
