@@ -72,7 +72,6 @@ for dir in dir_list:
         
                 json_data = {
                     "title_id": post_data["id"],
-                    "date": datetime.now().date().isoformat(),
                     "title": post_data["title"],
                     "level": post_data["level"],
                     "article": post_data["leveld_article"],
