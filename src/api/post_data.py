@@ -47,7 +47,8 @@ for dir in dir_list:
         
         max_id = 0
         try:
-            response = requests.get(get_max_id_api)  
+            response = requests.get(get_max_id_api)
+            print(f"response: {response.status_code}")  
             if response.status_code == 200:
                 data = response.json()
                 print("Max ID:", data['max_id'])
@@ -85,7 +86,8 @@ for dir in dir_list:
                 }
 
                 # HTTP POST 요청 보내기
-                response = requests.post(add_article_api, json=json_data, files=audio_file)
+                # 오디오 파일을 같이 전송할 경우 에러가 발생
+                response = requests.post(add_article_api, json=json_data)
 
                 # 응답 확인
                 if response.status_code == 200:
