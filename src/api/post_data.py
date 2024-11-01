@@ -7,6 +7,7 @@ from datetime import datetime
 # Anvil API 엔드포인트 URL
 api_base = "https://news-ease.com/_/api/"
 add_article_api = api_base + "add_article"
+add_audio_api = api_base + "add_audio"
 get_max_id_api = api_base + "max_id"
 
 # 오늘 날짜의 폴더 찾기
@@ -68,7 +69,7 @@ for dir in dir_list:
                 post_data["leveld_article"] = file.read()
                 
             with open(os.path.join(origin_path,level_txt[:-3] + "mp3"), 'rb') as file:
-                post_data["tts_audio"] = file
+                audio_data = file.read()
         
                 json_data = {
                     "title_id": post_data["id"],
@@ -79,17 +80,20 @@ for dir in dir_list:
                     "origin_url": post_data["url"],
                     "abstract": post_data["abstract"],
                 }
-                
-                audio_file = {
-                    "tts_audio": post_data["tts_audio"]
-                }
 
-                # HTTP POST 요청 보내기
+                # HTTP POST 요청 보내기 (json 메타데이터 전송)
                 # 오디오 파일을 같이 전송할 경우 에러가 발생
-                response = requests.post(add_article_api, json=json_data)
+                response = requests.post(
+                    add_article_api, 
+                    json=json_data, 
+                    data=audio_data, 
+                    headers={'Content-Type': 'application/octet-stream'},
+                )
 
                 # 응답 확인
                 if response.status_code == 200:
                     print("Success:", response.json())
                 else:
                     print("Error:", response.status_code, response.text)
+                    
+                # response = requests.post(add_audio_api, )
