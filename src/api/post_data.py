@@ -95,5 +95,3 @@ for dir in dir_list:
                     print("Success:", response.json())
                 else:
                     print("Error:", response.status_code, response.text)
-                    
-                # response = requests.post(add_audio_api, )
