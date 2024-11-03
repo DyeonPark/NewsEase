@@ -82,16 +82,27 @@ for dir in dir_list:
                 }
 
                 # HTTP POST 요청 보내기 (json 메타데이터 전송)
-                # 오디오 파일을 같이 전송할 경우 에러가 발생
                 response = requests.post(
-                    add_article_api, 
+                    url=add_article_api, 
                     json=json_data, 
+                )
+                
+                # 응답 확인
+                if response.status_code == 200:
+                    print("Adding article is Success:", response.json())
+                else:
+                    print("Error:", response.status_code, response.text)
+                
+                # 오디오 파일 전송
+                print(add_audio_api + f"?title_id={post_data["id"]}&level={post_data["level"]}")
+                response = requests.post(
+                    url=add_audio_api + f"?title_id={post_data["id"]}&level={post_data["level"]}", 
                     data=audio_data, 
                     headers={'Content-Type': 'application/octet-stream'},
                 )
 
                 # 응답 확인
                 if response.status_code == 200:
-                    print("Success:", response.json())
+                    print("Updating audio is Success:", response.json())
                 else:
                     print("Error:", response.status_code, response.text)
