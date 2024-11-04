@@ -3,6 +3,7 @@ from datetime import datetime
 from back.getNews import get_news_metainfo_from_bbc, get_article_from_url
 from back.createTTS import create_tts_from_txt
 from back.createNews import convert_txt_to_steps
+from api.post_data import post_data_to_server
 
 
 def check_n_crate_folder(path: str) -> None:
@@ -81,20 +82,21 @@ if __name__ == "__main__":
                     with open(os.path.join(origin_path, f"article-{level}.txt"), "w", encoding="utf-8") as file:
                         file.write(leveled_text)
     
-    
-    # # create tts file of today
-    # for dir in dir_list:
-    #     if now_date in dir:
-    #         tts_path = os.path.join(data_path, dir)
-    #         print(f">>> 작업 디렉토리 : {tts_path}")
+    # create tts file of today
+    for dir in dir_list:
+        if now_date in dir:
+            tts_path = os.path.join(data_path, dir)
+            print(f">>> 작업 디렉토리 : {tts_path}")
             
-    #         file_list = os.listdir(tts_path)
-    #         article_list = [file for file in file_list if file.startswith('article-') and file.endswith('.txt')]
-    #         for article in article_list:
-    #             article_path = os.path.join(tts_path, article)
-    #             print(f">>> >>> TTS 파일 생성중: {article_path}")
-    #             create_tts_from_txt(article_path)
-    #             print(f">>> >>> TTS 파일 생성 완료 !! {article_path}")
+            file_list = os.listdir(tts_path)
+            article_list = [file for file in file_list if file.startswith('article-') and file.endswith('.txt')]
+            for article in article_list:
+                article_path = os.path.join(tts_path, article)
+                print(f">>> >>> TTS 파일 생성중: {article_path}")
+                create_tts_from_txt(article_path)
+                print(f">>> >>> TTS 파일 생성 완료 !! {article_path}")
     
-    # # post all data to Anvil NewsEase
-    
+    # post all data to Anvil NewsEase
+    now_date = str(datetime.now().strftime("%Y-%m-%d"))
+    data_path = "../tmp-data"
+    post_data_to_server(now_date, data_path)
