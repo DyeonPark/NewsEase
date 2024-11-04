@@ -1,6 +1,5 @@
 import os
 import requests
-from anvil import Media
 from datetime import datetime
 
 
