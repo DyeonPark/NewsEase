@@ -28,7 +28,7 @@ def get_title_id_with_n(n: int) -> int:
 if __name__ == "__main__":
     # get article urls from NewsAPI
     data_path = "tmp-data"
-    N = 1
+    N = 5
     articles = get_news_metainfo_from_bbc(n=N) 
     
     # get texts and image urls from news url
@@ -98,5 +98,4 @@ if __name__ == "__main__":
     
     # post all data to Anvil NewsEase
     now_date = str(datetime.now().strftime("%Y-%m-%d"))
-    data_path = "../tmp-data"
     post_data_to_server(now_date, data_path)
