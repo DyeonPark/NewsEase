@@ -29,6 +29,7 @@ venv.bak/
 
 # VScode
 .vscode
+launch.json
 
 
 # Temp data
