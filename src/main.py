@@ -7,6 +7,8 @@ from api.post_data import post_data_to_server
 
 
 def check_n_crate_folder(path: str) -> None:
+    """입력받은 폴더 경로를 토대로 경로의 유무를 체크하고, 없다면 해당 경로를 새로 생성합니다.
+    """
     if not os.path.exists(path):
         os.makedirs(path)
         print(f"디렉토리를 생성하였습니다 : {path}")
