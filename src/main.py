@@ -19,6 +19,17 @@ def check_n_crate_folder(path: str) -> None:
 
 
 def get_title_id_with_n(n: int) -> int:
+    """
+    입력받은 숫자 값을 토대로 특정 포맷에 맞는 변환값을 변환합니다
+    
+    ex1)
+    Input Value: n = 3
+    Return Value: 2024111403
+    
+    ex2)
+    Input Value: n = 99
+    Return Value: 2024111499
+    """
     today_date = datetime.now().strftime('%Y%m%d')
     if n < 10:
         return_date = f"{today_date}0{n}"
@@ -27,7 +38,7 @@ def get_title_id_with_n(n: int) -> int:
     return int(return_date)
         
 
-if __name__ == "__main__":
+if __name__ == "__main__":ㅇ{
     # get article urls from NewsAPI
     data_path = "tmp-data"
     N = 5

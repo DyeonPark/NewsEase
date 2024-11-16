@@ -11,6 +11,9 @@ client = OpenAI(api_key=os.getenv("openaiAPI"))
 
 
 def get_news_metainfo_from_bbc(n: int = 5) -> List[str]:
+    """
+    NewsApiClient를 사용하여 BBC의 그날 대표 뉴스 n개에 대한 메타 정보를 반환합니다.
+    """
     # set tokens for NewsAPI
     NEWS_TOKEN = os.getenv("NewsAPI")
     newsapi = NewsApiClient(api_key=NEWS_TOKEN)
@@ -32,6 +35,9 @@ def get_news_metainfo_from_bbc(n: int = 5) -> List[str]:
     
     
 def get_article_from_url(url: str) -> str:
+    """
+    입력받은 URL을 토대로 기사의 본문 태그를 찾아 본문 내용을 반환합니다.
+    """
     # get HTML content of url
     print(url)
     response = requests.get(url)

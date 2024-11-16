@@ -10,6 +10,9 @@ add_audio_api = api_base + "add_audio"
 get_max_id_api = api_base + "max_id"
 
 def post_data_to_server(now_date, data_path):
+    """
+    생성한 데이터를 news-ease 서버에 전송합니다.
+    """
     dir_list = os.listdir(data_path)
     
     for dir in dir_list:
