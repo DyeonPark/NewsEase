@@ -38,7 +38,7 @@ def get_title_id_with_n(n: int) -> int:
     return int(return_date)
         
 
-if __name__ == "__main__":ㅇ{
+if __name__ == "__main__":
     # get article urls from NewsAPI
     data_path = "tmp-data"
     N = 5
