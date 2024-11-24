@@ -23,7 +23,7 @@ def convert_txt_to_steps(context: str, level: str):
             {"role": "system", "content": "You are a helpful assistant that rewrites articles."},
             {"role": "user", "content": prompt}
         ],
-        max_tokens=1000,
+        max_tokens=500,
         temperature=0.5
     )
     
