@@ -1,13 +1,15 @@
 import os
 import requests
 from datetime import datetime
+from .constant import API_BASE, ADD_ARTICLE_API, ADD_AUDIO_API, GET_MAX_ID_API, GET_DAILY_VISITS
 
 
 # Anvil API 엔드포인트 URL
-api_base = "https://news-ease.com/_/api/"
-add_article_api = api_base + "add_article"
-add_audio_api = api_base + "add_audio"
-get_max_id_api = api_base + "max_id"
+api_base = API_BASE
+add_article_api = ADD_ARTICLE_API
+add_audio_api = ADD_AUDIO_API
+get_max_id_api = GET_MAX_ID_API
+
 
 def post_data_to_server(now_date, data_path):
     """
