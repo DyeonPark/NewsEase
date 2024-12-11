@@ -31,3 +31,7 @@ jobs:
       #     pip install -r requirements.txt
         
       # - name: 
+      - name: Check directory
+        run: |
+          ls -al
+          cat src/main.py
