@@ -2,13 +2,13 @@ name: Run main.py on daily-runner Branch for upload article to db
 
 on:
   schedule:
-    - cron: "02 23 * * 1-5"  # 월~금, UTC 기준 오전 0시 (KST로 오전 9시)
+    - cron: "7 14 * * 1-5"  # 월~금, UTC 기준 오전 0시 (KST로 오전 9시)
   workflow_dispatch:
 
 jobs:
   run-python:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/daily-runner'  # main 브랜치에서만 실행
+    if: ${{ github.ref == 'refs/heads/daily-runner' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
 
     steps:
       - name: Checkout repository
