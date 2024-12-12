@@ -2,7 +2,7 @@ name: Run main.py on daily-runner Branch for upload article to db
 
 on:
   schedule:
-    - cron: "0 0 * * 1-5"  # 월~금, UTC 기준 오전 0시 (KST로 오전 9시)
+    - cron: "* */1 * * 1-5"  # 월~금, UTC 기준 오전 0시 (KST로 오전 9시)
 
 jobs:
   scheduled-job:
@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          ref: daily-runner
 
       - name: Set up Python
         uses: actions/setup-python@v4
