@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from openai import OpenAI
 
-client = OpenAI(api_key=os.getenv("openaiAPI"))
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def convert_txt_to_steps(context: str, level: str):

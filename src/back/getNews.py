@@ -4,9 +4,6 @@ from typing import List, Tuple
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from newsapi import NewsApiClient
-from openai import OpenAI
-
-client = OpenAI(api_key=os.getenv("openaiAPI"))
 
 
 def get_news_metainfo_from_bbc(n: int = 5) -> List[str]:
@@ -15,7 +12,7 @@ def get_news_metainfo_from_bbc(n: int = 5) -> List[str]:
     """
     # set tokens for NewsAPI
     NEWS_TOKEN = os.getenv("NewsAPI")
-    newsapi = NewsApiClient(api_key=NEWS_TOKEN)
+    newsapi = NewsApiClient(api_key="NEWS_API_KEY")
     
     # get top headlines of bbc-news
     top_headlines = newsapi.get_top_headlines(sources='bbc-news', page_size=n)
