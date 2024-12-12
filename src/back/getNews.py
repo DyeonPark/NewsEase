@@ -11,8 +11,11 @@ def get_news_metainfo_from_bbc(n: int = 5) -> List[str]:
     NewsApiClient를 사용하여 BBC의 그날 대표 뉴스 n개에 대한 메타 정보를 반환합니다.
     """
     # set tokens for NewsAPI
-    NEWS_TOKEN = os.getenv("NewsAPI")
-    newsapi = NewsApiClient(api_key="NEWS_API_KEY")
+    api_key = os.getenv("NEWS_API_KEY")
+    if not api_key:
+        raise ValueError("NEWS_API_KEY is not set or is empty")
+    
+    newsapi = NewsApiClient(api_key=api_key)
     
     # get top headlines of bbc-news
     top_headlines = newsapi.get_top_headlines(sources='bbc-news', page_size=n)
