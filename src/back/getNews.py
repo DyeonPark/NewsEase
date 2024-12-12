@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from newsapi import NewsApiClient
 from openai import OpenAI
 
-load_dotenv(verbose=True)
 client = OpenAI(api_key=os.getenv("openaiAPI"))
 
 
