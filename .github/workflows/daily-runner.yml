@@ -2,7 +2,7 @@ name: Run main.py on daily-runner Branch for upload article to db
 
 on:
   schedule:
-    - cron: "* 21 * * 1-5"  # 월~금, UTC 기준 오전 0시 (KST로 오전 9시)
+    - cron: "0 21 * * 1-5"  # 월~금, UTC 기준 오전 0시 (KST로 오전 9시)
   workflow_dispatch:
 
 jobs:
