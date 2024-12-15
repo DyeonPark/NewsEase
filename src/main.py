@@ -1,4 +1,5 @@
 import os
+import json
 from datetime import datetime
 from back.getNews import get_news_metainfo_from_bbc, get_article_from_url
 from back.createTTS import create_tts_from_txt
@@ -41,7 +42,7 @@ def get_title_id_with_n(n: int) -> int:
 if __name__ == "__main__":
     # get article urls from NewsAPI
     data_path = "tmp-data"
-    N = 5
+    N = 10
     articles = get_news_metainfo_from_bbc(n=N) 
     
     # get texts and image urls from news url
@@ -89,11 +90,19 @@ if __name__ == "__main__":
                 file_content = file.read()
                 
                 for level in [1, 2, 3]:
-                    leveled_text = convert_txt_to_steps(context=file_content, level=news_level[level])
+                    leveled_info = convert_txt_to_steps(context=file_content, level=news_level[level])
                     print(f">>> >>> 재생성 진행중인 기사 파일: {os.path.join(origin_path, f"article-{level}.txt")}")
                     
+                    print(leveled_info)
+                    leveled_info = json.loads(leveled_info)
                     with open(os.path.join(origin_path, f"article-{level}.txt"), "w", encoding="utf-8") as file:
-                        file.write(leveled_text)
+                        file.write(leveled_info["rewrite_article"])
+                        
+                    with open(os.path.join(origin_path, f"category.txt"), "w", encoding="utf-8") as file:
+                        file.write(leveled_info["category"])
+                        
+                    with open(os.path.join(origin_path, f"keywords-{level}.txt"), "w", encoding="utf-8") as file:
+                        file.write(str(leveled_info["keywords"]))
     
     # create tts file of today
     for dir in dir_list:
