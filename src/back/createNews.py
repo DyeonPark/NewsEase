@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv(verbose=True) # only for local test
+# load_dotenv(verbose=True) # only for local test
 api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     raise ValueError("OPENAI_API_KEY is not set or is empty")
