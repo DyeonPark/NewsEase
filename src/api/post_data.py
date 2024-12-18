@@ -1,4 +1,5 @@
 import os
+import time
 from nltk.corpus import wordnet
 import nltk
 import requests
@@ -123,7 +124,8 @@ def post_data_to_server(now_date, data_path):
                     # word_id 설정
                     response = requests.get(get_max_word_id_api)
                     max_word_id = response.json().get("max_word_id")
-                    word_id = max_word_id + 1
+                    print(f">>> max_word_id is {max_word_id}")
+                    word_id = int(max_word_id) + 1
                 
                     json_worddata = {
                         "title_id": post_data["id"],
@@ -133,7 +135,13 @@ def post_data_to_server(now_date, data_path):
                         "meaning": meaning_value,
                         "synonyms": synonyms_value
                     }
-                    response = requests.post(url=add_word_api, json=json_worddata)
+                    try:
+                        response = requests.post(url=add_word_api, json=json_worddata)
+                        time.sleep(10)
+                        print(f"JSON is valid: {json_worddata}")
+                    except ValueError as e:
+                        print(f"Invalid JSON: {json_worddata} -- {e}")
+                    
                     if response.status_code == 200:
                         print(f"Adding word [{word}] is Success:", response.json())
                     else:
