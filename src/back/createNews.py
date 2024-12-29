@@ -44,7 +44,7 @@ def convert_txt_to_steps(context: str, level: str):
     I'll send you the article body. Please return the value in json format like below.
     {{"rewrite_article":string , "category":string, "keywords":list(str)}}
 
-    1. Rewrite the article text to a {level} level and put it as the first part of the return value. You must finish article within 50 centences, and line it up appropriately to make it easier to read
+    1. Rewrite the article text to a {level} level and put it as the first part of the return value. You must finish article within 50 centences, and line it up appropriately to make it easier to read. Also, be original and must not duplicate any of the original sentences.
     2. Select the category of t]orts, business, innovation, culture, travel, or earth, and enter it as the second value in the return value.
     3. Select 5-7 important words from the article in purpose of learning English and put them as the 3rd part of the return value
 
