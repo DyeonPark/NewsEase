@@ -1,8 +1,8 @@
-name: Run main.py on daily-runner Branch for upload article to db
+name: Run main.py on main Branch for upload article to db
 
 on:
   schedule:
-    - cron: "0 16 * * 1-5"  # KST 기준 새벽 1시
+    - cron: "0 16 * * 0-4"  # KST 기준 새벽 1시
   workflow_dispatch:
 
 jobs:
